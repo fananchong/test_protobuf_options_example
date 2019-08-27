@@ -6,9 +6,8 @@ package proto
 import (
 	context "context"
 	fmt "fmt"
-	test_protobuf_options "github.com/fananchong/test_protobuf_options"
+	_ "github.com/fananchong/test_protobuf_options"
 	proto "github.com/golang/protobuf/proto"
-	grpc "google.golang.org/grpc"
 	math "math"
 )
 
@@ -69,85 +68,21 @@ func init() {
 func init() { proto.RegisterFile("test.proto", fileDescriptor_c161fcfdc0c3ff1e) }
 
 var fileDescriptor_c161fcfdc0c3ff1e = []byte{
-	// 128 bytes of a gzipped FileDescriptorProto
+	// 141 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2a, 0x49, 0x2d, 0x2e,
 	0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x05, 0x53, 0x52, 0xfc, 0x49, 0x45, 0xf9, 0x89,
 	0x29, 0xc9, 0x89, 0x30, 0x71, 0x25, 0x59, 0x2e, 0xf6, 0xa0, 0xd4, 0xc2, 0xd2, 0xd4, 0xe2, 0x12,
 	0x21, 0x21, 0x2e, 0x96, 0xbc, 0xc4, 0xdc, 0x54, 0x09, 0x46, 0x05, 0x46, 0x0d, 0xce, 0x20, 0x30,
-	0xdb, 0xc8, 0x84, 0x8b, 0x39, 0x38, 0xb1, 0x52, 0x48, 0x97, 0x8b, 0xd5, 0x23, 0x35, 0x27, 0x27,
+	0xdb, 0x28, 0x81, 0x8b, 0x39, 0x38, 0xb1, 0x52, 0x48, 0x8f, 0x8b, 0xd5, 0x23, 0x35, 0x27, 0x27,
 	0x5f, 0x88, 0x0f, 0xa2, 0x4d, 0x0f, 0xaa, 0x47, 0x8a, 0x5f, 0x2f, 0xb7, 0xb2, 0x20, 0x31, 0x39,
-	0x5b, 0xcf, 0x2f, 0x3f, 0x28, 0xb5, 0x20, 0xa7, 0x52, 0x89, 0xf9, 0x80, 0x1d, 0x63, 0x12, 0x1b,
-	0x58, 0x91, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0x62, 0x2f, 0x90, 0xf9, 0x81, 0x00, 0x00, 0x00,
+	0x5b, 0xcf, 0x2f, 0x3f, 0x28, 0xb5, 0x20, 0xa7, 0x52, 0x89, 0xa5, 0x61, 0xab, 0x04, 0xa3, 0x90,
+	0x26, 0x17, 0x4b, 0x40, 0x66, 0x5e, 0x3a, 0x61, 0xe5, 0x0c, 0x49, 0x6c, 0x60, 0x15, 0xc6, 0x80,
+	0x00, 0x00, 0x00, 0xff, 0xff, 0x8d, 0xfa, 0x69, 0x18, 0xad, 0x00, 0x00, 0x00,
 }
 
-// Reference imports to suppress errors if they are not otherwise used.
-var _ context.Context
-var _ grpc.ClientConn
+// For example
 
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion4
-
-// SayClient is the client API for Say service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type SayClient interface {
-	Hello(ctx context.Context, in *Request, opts ...grpc.CallOption) (*test_protobuf_options.NoReply, error)
-}
-
-type sayClient struct {
-	cc *grpc.ClientConn
-}
-
-func NewSayClient(cc *grpc.ClientConn) SayClient {
-	return &sayClient{cc}
-}
-
-func (c *sayClient) Hello(ctx context.Context, in *Request, opts ...grpc.CallOption) (*test_protobuf_options.NoReply, error) {
-	out := new(test_protobuf_options.NoReply)
-	err := c.cc.Invoke(ctx, "/proto.Say/Hello", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// SayServer is the server API for Say service.
-type SayServer interface {
-	Hello(context.Context, *Request) (*test_protobuf_options.NoReply, error)
-}
-
-func RegisterSayServer(s *grpc.Server, srv SayServer) {
-	s.RegisterService(&_Say_serviceDesc, srv)
-}
-
-func _Say_Hello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SayServer).Hello(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/proto.Say/Hello",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SayServer).Hello(ctx, req.(*Request))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-var _Say_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.Say",
-	HandlerType: (*SayServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "Hello",
-			Handler:    _Say_Hello_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "test.proto",
+type SayService interface {
+	BroadcastHello(ctx context.Context) error
+	Ping(ctx context.Context) error
 }

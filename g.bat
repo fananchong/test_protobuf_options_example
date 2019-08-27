@@ -8,4 +8,4 @@ set /P DEP2=<temp
 echo %DEP1%
 echo %DEP2%
 
-protoc -I. -I%DEP1% -I%DEP2% --go_out=plugins=grpc:. test.proto
+protoc -I. -I%DEP1% -I%DEP2% --test_out=. test.proto
